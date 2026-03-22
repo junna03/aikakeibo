@@ -1,13 +1,11 @@
 const { useState, useEffect, useCallback, useRef } = React;
 
-// --- ヘルパー関数 ---
-const fmt = n => `¥${Math.round(Number(n)||0).toLocaleString("ja-JP")}`;
-const todayStr = () => new Date().toISOString().split("T")[0];
-
+// --- Claudeで作った元のロジック部分（ここをApp内で使います） ---
 function App() {
   const [unlocked, setUnlocked] = useState(false);
-  const [tab, setTab] = useState('daily'); // 今どのタブにいるかを管理
-  const [date, setDate] = useState(todayStr());
+  const [tab, setTab] = useState('daily');
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [expenses, setExpenses] = useState([]); // データを保存する場所
 
   // ロック解除画面
   if (!unlocked) {
@@ -26,70 +24,56 @@ function App() {
     );
   }
 
-  // 表示する中身をタブごとに切り替える
-  let content;
-  if (tab === 'daily') {
-    content = (
-      <div>
-        <div className="card">
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-        </div>
-        <div className="card">
-          <h3 style={{fontSize: '15px', marginTop: 0}}>💸 今日の支出</h3>
-          <p style={{fontSize: '12px', color: '#A08AB8'}}>「スーパー3000円」など自然な言葉でOK！<br/>レシート写真 📷 からも読み取れるよ</p>
-          <textarea placeholder="例：スーパー 3000円&#10;コンビニ 450円"></textarea>
-          <button className="btn-primary">✨ カテゴリを自動判定する</button>
-          <div style={{textAlign: 'center', marginTop: 20, borderTop: '1px dashed #F0D8F0', paddingTop: 15}}>
-             <span style={{fontSize: '12px', color: '#A08AB8'}}>▼ 手動でカテゴリ指定して入力</span>
+  // タブごとの表示内容
+  const renderContent = () => {
+    switch (tab) {
+      case 'daily':
+        return (
+          <div className="slideUp">
+            <div className="card">
+              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            </div>
+            <div className="card">
+              <h3 style={{fontSize: '15px', marginTop: 0}}>💸 今日の支出</h3>
+              <p style={{fontSize: '12px', color: '#A08AB8'}}>「スーパー3000円」など自然な言葉でOK！<br/>レシート写真 📷 からも読み取れるよ</p>
+              <textarea placeholder="例：スーパー 3000円&#10;コンビニ 450円"></textarea>
+              <button className="btn-primary">✨ カテゴリを自動判定する</button>
+              <div style={{textAlign: 'center', marginTop: 20, borderTop: '1px dashed #F0D8F0', paddingTop: 15}}>
+                 <span style={{fontSize: '12px', color: '#A08AB8'}}>▼ 手動でカテゴリ指定して入力</span>
+              </div>
+            </div>
+            {expenses.length === 0 && (
+              <div style={{textAlign: 'center', marginTop: 40}}>
+                <div style={{fontSize: '40px'}}>🌷</div>
+                <p style={{color: '#A08AB8', fontSize: '14px'}}>まだ支出がありません<br/>上から入力してみてね✨</p>
+              </div>
+            )}
           </div>
-        </div>
-        <div style={{textAlign: 'center', marginTop: 40}}>
-          <div style={{fontSize: '40px'}}>🌷</div>
-          <p style={{color: '#A08AB8', fontSize: '14px'}}>まだ支出がありません<br/>上から入力してみてね✨</p>
-        </div>
-      </div>
-    );
-  } else if (tab === 'calendar') {
-    content = (
-      <div className="card" style={{textAlign:'center'}}>
-        <h3>🗓️ カレンダー</h3>
-        <p style={{color: '#A08AB8'}}>ここにカレンダーが表示される予定です</p>
-        <div style={{fontSize:50}}>📅</div>
-      </div>
-    );
-  } else if (tab === 'report') {
-    content = (
-      <div className="card" style={{textAlign:'center'}}>
-        <h3>📊 レポート</h3>
-        <p style={{color: '#A08AB8'}}>今月の支出グラフが表示される予定です</p>
-        <div style={{fontSize:50}}>📈</div>
-      </div>
-    );
-  } else if (tab === 'setup') {
-    content = (
-      <div className="card">
-        <h3>🌸 設定</h3>
-        <p style={{color: '#A08AB8'}}>カテゴリの編集やデータの書き出しができます</p>
-        <button className="btn-primary" style={{background:'#A08AB8'}}>データをすべて消去する</button>
-      </div>
-    );
-  }
+        );
+      case 'calendar':
+        return <div className="card"><h3>🗓️ カレンダー画面</h3><p>ここにカレンダーのロジックが入ります</p></div>;
+      case 'report':
+        return <div className="card"><h3>📊 レポート画面</h3><p>支出グラフが表示されます</p></div>;
+      case 'setup':
+        return <div className="card"><h3>🌸 設定画面</h3><p>カテゴリ設定など</p></div>;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div style={{maxWidth: '480px', margin: '0 auto', minHeight: '100vh', background: '#FFF5FA'}}>
       <header>
         <h1>🌸 か け い ぼ 💕</h1>
       </header>
-      
       <nav>
         <button className={tab === 'daily' ? 'active' : ''} onClick={() => setTab('daily')}>📅<br/>今日</button>
         <button className={tab === 'calendar' ? 'active' : ''} onClick={() => setTab('calendar')}>🗓️<br/>カレンダー</button>
         <button className={tab === 'report' ? 'active' : ''} onClick={() => setTab('report')}>✨<br/>レポート</button>
         <button className={tab === 'setup' ? 'active' : ''} onClick={() => setTab('setup')}>🌸<br/>設定</button>
       </nav>
-
       <main style={{padding: '10px'}}>
-        {content}
+        {renderContent()}
       </main>
     </div>
   );
