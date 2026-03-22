@@ -1,0 +1,69 @@
+/* 全般スタイル */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #FFF5FA;
+    font-family: 'Zen Maru Gothic', 'Noto Sans JP', sans-serif;
+    color: #5C3D6B;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* アニメーション */
+@keyframes popIn {
+    0% { transform: translateX(-50%) scale(.7); opacity: 0; }
+    70% { transform: translateX(-50%) scale(1.05); }
+    100% { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+@keyframes floatAnim {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(12px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes shakeX {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+.slideUp {
+    animation: slideUp .3s ease forwards;
+}
+
+/* 入力要素の共通設定 */
+input:focus, select:focus {
+    border-color: #F48FB1 !important;
+    box-shadow: 0 0 0 3px #FFD6E7 !important;
+    outline: none;
+}
+
+button {
+    transition: all .18s;
+}
+
+button:hover {
+    filter: brightness(1.04);
+    transform: translateY(-1px);
+}
+
+button:active {
+    filter: brightness(.95);
+    transform: scale(.97) translateY(0);
+}
+
+/* スクロールバー */
+::-webkit-scrollbar {
+    width: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background: #FFD6E7;
+    border-radius: 4px;
+}
