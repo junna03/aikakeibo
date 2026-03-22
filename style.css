@@ -1,86 +1,9 @@
-/* 全体のベース */
-body {
-  margin: 0;
-  font-family: 'Zen Maru Gothic', sans-serif;
-  background-color: #FFF5FA;
-  color: #5C3D6B;
-}
-
-/* ヘッダーのグラデーション */
-header {
-  background: linear-gradient(135deg, #FFE0EC 0%, #EDD5FF 50%, #C5EDF5 100%);
-  padding: 20px;
-  text-align: center;
-  border-bottom: 1px solid #F0D8F0;
-}
-
-h1 {
-  font-family: 'Klee One', serif;
-  font-size: 22px;
-  letter-spacing: 0.2em;
-  margin: 0;
-}
-
-/* ナビゲーションタブ */
-nav {
-  display: flex;
-  background: white;
-  border-bottom: 1px solid #F0D8F0;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-nav button {
-  flex: 1;
-  padding: 12px 5px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: bold;
-  color: #A08AB8;
-  border-bottom: 3px solid transparent;
-}
-
-nav button.active {
-  color: #F48FB1;
-  border-bottom: 3px solid #F48FB1;
-  background-color: #FFF0F7;
-}
-
-/* カード形式の入力エリア */
-.card {
-  background: white;
-  margin: 15px;
-  padding: 20px;
-  border-radius: 20px;
-  border: 1px solid #F0D8F0;
-  box-shadow: 0 4px 15px rgba(244, 143, 177, 0.15);
-}
-
-/* ピンクの丸いボタン */
-.btn-primary {
-  width: 100%;
-  padding: 12px;
-  border-radius: 30px;
-  border: none;
-  background: linear-gradient(135deg, #F9A8C9, #F48FB1);
-  color: white;
-  font-weight: bold;
-  font-size: 15px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-/* 入力フィールド */
-textarea, input[type="date"] {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px;
-  border-radius: 15px;
-  border: 1.5px solid #F0D8F0;
-  background-color: #FFF0F7;
-  font-family: inherit;
-  margin-bottom: 10px;
-}
+body { margin: 0; font-family: 'Zen Maru Gothic', sans-serif; background-color: #FFF5FA; color: #5C3D6B; }
+header { background: linear-gradient(135deg, #FFE0EC, #EDD5FF, #C5EDF5); padding: 20px; text-align: center; border-bottom: 1px solid #F0D8F0; }
+h1 { font-family: 'Klee One', serif; font-size: 22px; letter-spacing: 0.2em; margin: 0; }
+nav { display: flex; background: white; border-bottom: 1px solid #F0D8F0; position: sticky; top: 0; z-index: 10; }
+nav button { flex: 1; padding: 12px 5px; border: none; background: none; cursor: pointer; font-size: 11px; font-weight: bold; color: #A08AB8; border-bottom: 3px solid transparent; }
+nav button.active { color: #F48FB1; border-bottom: 3px solid #F48FB1; background-color: #FFF0F7; }
+.card { background: white; margin: 15px; padding: 20px; border-radius: 20px; border: 1px solid #F0D8F0; box-shadow: 0 4px 15px rgba(244, 143, 177, 0.15); }
+.btn-primary { width: 100%; padding: 12px; border-radius: 30px; border: none; background: linear-gradient(135deg, #F9A8C9, #F48FB1); color: white; font-weight: bold; font-size: 15px; cursor: pointer; margin-top: 10px; }
+textarea, input[type="date"] { width: 100%; box-sizing: border-box; padding: 12px; border-radius: 15px; border: 1.5px solid #F0D8F0; background-color: #FFF0F7; margin-bottom: 10px; }
